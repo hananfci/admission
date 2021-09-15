@@ -1,1 +1,98 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+    background-color:#edf1f7;
+    font-size:15px!important;
+  }
+/*============================================================
+	Footer
+==============================================================*/
+
+#footer {
+    background-color: black;
+    padding: 70px 0;
+    color: #fff;
+    padding-top: 20px;
+     position: absolute;
+  /*bottom: 0;*/
+  width: 100%;
+
+
+}
+
+.footer-content {
+    margin: 0 auto;
+}
+
+.footer-content > div {
+    margin-bottom: 22px;
+}
+
+.footer-content > div > p:first-child {
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+
+.footer-content > p {
+    color: #ababab;
+    font-size: 12px;
+}
+
+.spinner div:first-child {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    box-shadow: 0 3px 3px 0 rgba(255,56,106,1);
+    transform: translate3d(0,0,0);
+    animation: spin 2s linear infinite;
+}
+
+    .spinner div:first-child:after, .spinner div:first-child:before {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+    }
+
+    .spinner div:first-child:before {
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        box-shadow: 0 3px 3px 0 rgb(255, 228, 32);
+        -webkit-animation: spin 3s linear infinite;
+        animation: spin 3s linear infinite;
+    }
+
+    .spinner div:first-child:after {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        box-shadow: 0 3px 3px 0 rgba(61, 175, 255,1);
+        animation: spin 1.5s linear infinite;
+    }
+
+    .bg-dark {
+        padding: 8px 30px;
+    }
+
+    .navbar-dark .navbar-brand {
+        color: white!important;
+    }
+    .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
+        color: #18cfc4!important;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+        color: white!important;
+    }
+    .navbar-dark .navbar-nav .nav-link {
+        color: white!important;
+    }
+    .navbar-dark .navbar-nav .active .nav-link{
+        color: #18cfc4 !important;
+
+    }
