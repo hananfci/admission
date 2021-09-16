@@ -17,9 +17,191 @@
     <app-header></app-header>
 
 <div class="container content">
+    <mat-horizontal-stepper [linear]="isLinear" #stepper="matHorizontalStepper">
+      <mat-step [stepControl]="personaldataFormGroup">
+        <form [formGroup]="personaldataFormGroup">
+          <ng-template matStepLabel>Personal data</ng-template>
+          <div class="row">
+              <div class="form-group col-4">
+                <label for="exampleFormControlInput1">Student name Ar</label>
+                <input type="text" class="form-control" placeholder="Student name Ar" type="text" formControlName="studentnamear">
+                <span *ngIf="personaldataFormGroup.controls['studentnamear'].errors?.required && personaldataFormGroup.controls['studentnamear'].touched" style="color:red">Must enter value here ! </span>
+                <span *ngIf="personaldataFormGroup.controls['studentnamear'].errors?.pattern && personaldataFormGroup.controls['studentnamear'].touched" style="color:red">Must enter arabic letter only!</span>
 
+              </div>
+              <div class="form-group col-4">
+                <label for="exampleFormControlInput1">Student name En</label>
+                <input type="text" class="form-control" placeholder="Student name En" type="text" formControlName="studentnameen">
+                <span *ngIf="personaldataFormGroup.controls['studentnameen'].errors?.required && personaldataFormGroup.controls['studentnameen'].touched" style="color:red">Must enter value here ! </span>
+                <span *ngIf="personaldataFormGroup.controls['studentnameen'].errors?.pattern && personaldataFormGroup.controls['studentnameen'].touched" style="color:red"> Must enter english letter only!</span>
+
+
+              </div>
+              <div class="form-group col-4">
+                <label for="exampleFormControlInput1"> Date of Birth</label>
+                <input type="text" class="form-control" placeholder="BirthDate" type="date" formControlName="studentbirthdate" (change)="checkAgeVal($event)">
+                <span *ngIf="personaldataFormGroup.controls['studentbirthdate'].errors?.required && personaldataFormGroup.controls['studentbirthdate'].touched" style="color:red">Must enter value here ! </span>
+                <span *ngIf="personaldataFormGroup.controls['studentbirthdate'].hasError('minValue') && personaldataFormGroup.controls['studentbirthdate'].touched" style="color:red"> Age must be greater than 18 years old  </span>
+
+              </div>
+            <div class="form-group col-4" style="padding-top: 2%;">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="studentgender" id="male" value="0" formControlName="studentgender" >
+                    <label class="form-check-label" for="male">MAle</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="studentgender" id="female" value="1" formControlName="studentgender" >
+                    <label class="form-check-label" for="female">Female</label>
+                  </div>
+
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="isforign" (change)="checkValue($event)" formControlName="isforign">
+                    <label class="form-check-label" for="isforign">Is Forign</label>
+                  </div>
+
+
+            </div>
+              <div class="form-group col-4" *ngIf="!isForign">
+                <label for="NationalId">National Id</label>
+                <input type="number" onKeyPress="if(this.value.length==14) return false;" class="form-control" placeholder="National Id"  formControlName="studentnationalid">
+                <span *ngIf="personaldataFormGroup.controls['studentnationalid'].errors?.pattern && personaldataFormGroup.controls['studentnationalid'].touched" style="color:red"> Must enter 14 numbers</span>
+                <span *ngIf="personaldataFormGroup.hasError('nationalIdemp') && personaldataFormGroup.controls['studentnationalid'].touched" style="color:red"> Must enter value here</span>
+
+              </div>
+              <div class="form-group col-4" *ngIf="isForign">
+                <label for="PassportId">Passport Id</label>
+                <input type="number" class="form-control" placeholder="Passport Id"  formControlName="studentpassportid">
+                <span *ngIf="personaldataFormGroup.hasError('PassportIdemp') && personaldataFormGroup.controls['studentpassportid'].touched" style="color:red"> Must enter value here</span>
+
+              </div>
+              <div class="form-group col-4">
+                <label for="Country">Country </label>
+                <select id="inputState" class="form-control" formControlName="studentcountry">
+                  <option disabled >Choose...</option>
+                  <option *ngFor="let country of countries" [value]="id"> {{country.country_Name }}</option>
+                  <span *ngIf="personaldataFormGroup.controls['studentcountry'].errors?.required && personaldataFormGroup.controls['studentcountry'].touched" style="color:red">Must enter value here ! </span>
+
+          </select>
+             </div>
+              <div class="form-group col-4">
+                <label for="Address">Address</label>
+                <input type="text" class="form-control" placeholder="Address"  formControlName="studentaddress">
+                <span *ngIf="personaldataFormGroup.controls['studentaddress'].errors?.required && personaldataFormGroup.controls['studentaddress'].touched" style="color:red">Must enter value here ! </span>
+
+              </div>
+
+
+        </div>
+          <div>
+            <!-- <button mat-button matStepperNext>Next</button> -->
+            <button type="button" class="btn btn-primary" matStepperNext [disabled]= "!personaldataFormGroup.valid">next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="educationdataFormGroup">
+        <form [formGroup]="educationdataFormGroup">
+          <ng-template matStepLabel>Education data</ng-template>
+          <div class="row">
+            <div class="form-group col-4">
+              <label for="certificationtype">Certification Type</label>
+              <input type="text" class="form-control" placeholder="Certification Type" type="text" formControlName="certificationtype">
+              <span *ngIf="educationdataFormGroup.controls['certificationtype'].errors?.required && educationdataFormGroup.controls['certificationtype'].touched" style="color:red">Must enter value here ! </span>
+
+            </div>
+            <div class="form-group col-4">
+              <label for="testresult">Test Result</label>
+              <input type="text" class="form-control" placeholder="Test Result" type="text" formControlName="testresult">
+              <span *ngIf="educationdataFormGroup.controls['testresult'].errors?.required && educationdataFormGroup.controls['testresult'].touched" style="color:red">Must enter value here ! </span>
+
+            </div>
+            <div>
+            <button mat-button matStepperPrevious class="btn btn-secondary" style="margin-right: 10px;">Previous</button>
+            <button mat-button matStepperNext class="btn btn-primary" [disabled]= "!educationdataFormGroup.valid">next</button>
+            </div>
+        </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="documentsFormGroup">
+        <form [formGroup]="documentsFormGroup">
+          <ng-template matStepLabel>Education data</ng-template>
+          <div class="form-group col-8">
+            <label for="personalimagefile">Personal Image   </label>
+            <!-- <input type="file" class="form-control form-control-file" id="personalimagefile" formControlName="personalimagefile">
+ -->
+
+            <div class="row" style="margin-right: 0px;">
+              <input  class="form-control col-7"
+              id="personalimagefile"
+              name="personalimagefile"
+              placeholder="  ارفع صورة"
+              #file
+              type="file"
+              accept='image/*'
+              (change)="Upload($event,1)"
+              formControlName="formControlName"/>
+
+            <div class="col-5" *ngIf="!fileExtensionError" >
+              <img  style="margin-top: -1px;" [src]="imgURL" height="45" width= "50" *ngIf="imgURL">
+            </div>
+<!--             <span style="color:red" *ngIf="fileExtensionError">يجب ان يكون امتداد الصورة (png , jpg,jpeg)  ! </span>
+ -->
+          </div>
+          </div>
+          <div class="form-group col-8">
+            <label for="nationalidimagefile">National Id Image  </label>
+<!--             <input type="file" class="form-control form-control-file" id="nationalidimagefile" formControlName="nationalidimagefile">
+ -->
+            <div class="row" style="margin-right: 0px;">
+              <input  class="form-control col-7"
+              id="nationalidimagefile"
+              name="nationalidimagefile"
+              placeholder="  ارفع صورة"
+              #file
+              type="file"
+              accept='image/*'
+              (change)="Upload($event,2)"
+              formControlName="nationalidimagefile"/>
+
+            <div class="col-5" *ngIf="!fileExtensionError" >
+              <img  style="margin-top: -1px;" [src]="imgURL" height="45" width= "50" *ngIf="imgURL">
+            </div>
+<!--             <span style="color:red" *ngIf="fileExtensionError">يجب ان يكون امتداد الصورة (png , jpg,jpeg)  ! </span>
+ -->
+          </div>
+          </div>
+          <div class="form-group col-6">
+            <label for="certificationimagefile">Certification Image  </label>
+            <input type="file" class="form-control form-control-file" id="certificationimagefile" formControlName="certificationimagefile">
+          </div>
+          <div class="form-group col-6">
+            <label for="passportimagefile">Passport Image   </label>
+            <input type="file" class="form-control form-control-file" id="passportimagefile" formControlName="passportimagefile">
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious class="btn btn-secondary" style="margin-right: 10px;" >Previous</button>
+            <button mat-button matStepperNext class="btn btn-primary" style="color:rgb(253, 220, 220);position: relative;" [disabled]= "!documentsFormGroup.valid || postdata">
+
+              Save
+              <div class="loadingio-spinner-spin-tg278z7z83"  [ngClass]="postdata? 'block' : 'none'" >
+               <div class="ldio-tw3lft2h3a">
+               <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+               </div>
+             </div>
+            </button>
+
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+
+
+    <!-- Copyright 2018 Google Inc. All Rights Reserved.
+        Use of this source code is governed by an MIT-style license that
+        can be found in the LICENSE file at http://angular.io/license -->
 </div>
-    <app-footer></app-footer>
+   <!--  <app-footer></app-footer> -->
 
 </div><!-- #full-container end -->
-<a class="scroll-top"  (click)="gotoTop()"><i class="fa fa-angle-up"></i></a>
+

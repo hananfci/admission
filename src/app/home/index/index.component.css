@@ -103,3 +103,22 @@
     transform-origin: 0 0; /* see note above */
   }
   .ldio-tw3lft2h3a div { box-sizing: content-box; }
+  .content{
+    margin-top:6%;
+    margin-bottom:5%;
+  }
+
+  .mat-stepper-vertical, .mat-stepper-horizontal {
+    border-radius: 13px!important;
+    padding: 1% 8%!important;
+}
+
+.col-4,.col-6 {
+  padding-bottom: 2%;
+}
+.block{
+  display: block;
+}
+.none{
+  display: none;
+}

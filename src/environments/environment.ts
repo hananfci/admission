@@ -3,6 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
+  apiRoot : 'http://venusera-001-site9.itempurl.com/api',
   production: false
 };
 
