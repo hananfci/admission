@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule ,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HomeRoutingModule } from './home-routing-module';
 import { IndexComponent } from './index/index.component';
 import { FooterComponent } from './footer/footer.component';
@@ -10,10 +10,11 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login/login.component';
+import { RequestsComponent } from './requests/requests.component';
 @NgModule({
   imports: [
     CommonModule,
-
     HomeRoutingModule,
     MatStepperModule,
     MatFormFieldModule,
@@ -25,15 +26,12 @@ import { CommonModule } from '@angular/common';
   ],
 
   declarations: [
-
   IndexComponent,
-
   FooterComponent,
+  HeaderComponent,
+  LoginComponent,
+  RequestsComponent],
 
-  HeaderComponent],
-exports: [
-
-],
   providers: [
 
   ],

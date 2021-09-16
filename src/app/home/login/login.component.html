@@ -1,0 +1,58 @@
+
+
+<div id="full-container">
+    <app-header></app-header>
+
+<div class="content">
+
+<div class="row justify-content-center">
+<div class="col-4">
+      <div class="card">
+        <div class="alert alert-danger" role="alert" *ngIf="Error">
+          Not valid data, try agian!
+        </div>
+        <h1 class="title">Sign In</h1>
+        <form [formGroup] = "loginForm" (ngSubmit) = "onSubmit()">
+
+          <div class="input-container">
+            <div class="form-group inputs">
+                <label>Email</label>
+              <input type="email"   id="userName"
+              formControlName="userName" name="userName" placeholder=" Enter your email">
+
+            <div class="bar"></div>
+              <span *ngIf="loginForm.controls['userName'].errors?.required && loginForm.controls['userName'].touched" style="color:red" class="span-error">Please enter your email </span>
+
+            </div>
+
+          </div>
+
+
+            <div class="input-container">
+              <div class="form-group inputs ">
+                <label>Email</label>
+                    <input type="password"  id="password"
+                    formControlName="password" name="password"  placeholder="Password">
+
+                <span *ngIf="loginForm.controls['password'].errors?.required && loginForm.controls['password'].touched" class="span-error" style="color:red">please enter your password </span>
+
+              </div>
+            </div>
+          <div class="button-container">
+            <button type="submit" class="btn-login"  [disabled]="!loginForm.valid || loadingdata" ><span >Log in</span></button>
+
+          </div>
+
+        </form>
+
+
+
+        </div>
+</div>
+</div>
+
+</div>
+<app-footer></app-footer>
+
+</div><!-- #full-container end -->
+

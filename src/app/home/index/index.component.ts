@@ -10,6 +10,7 @@ import { HttprequsetService } from '../../share/httprequset.service'
 export class IndexComponent implements OnInit {
 
   isLinear = true;
+  submitSuccess = false;
   personaldataFormGroup: FormGroup;
   educationdataFormGroup: FormGroup;
   documentsFormGroup: FormGroup;
@@ -23,8 +24,15 @@ export class IndexComponent implements OnInit {
   postdata = false;
   fileExtension: any;
   fileExtensionError: boolean = false;
-  selectedFile: any = null;
-  imgURL: any;
+  fileSelect:any = null
+  personalfile: any = null;
+  nationalidfile: any = null;
+  certificationfile: any = null;
+  passportfile: any = null;
+  imgpersonalURL: any;
+  imgnationalURL: any;
+  imgpassportURL: any;
+  imgcertificationURL: any;
   public message: string;
   constructor(private _formBuilder: FormBuilder, private requestService: HttprequsetService) { }
 
@@ -40,13 +48,15 @@ export class IndexComponent implements OnInit {
       isforign: [false, Validators.required],
       studentaddress: ['', Validators.required]
     },{validators: [this.checknationalid,this.checkPassportId]});
+
     this.educationdataFormGroup = this._formBuilder.group({
       certificationtype: ['', Validators.required],
       testresult: ['', Validators.required],
     });
+
     this.documentsFormGroup = this._formBuilder.group({
       personalimagefile: ['', Validators.required],
-      nationalidimagefile: ['', Validators.required],
+      nationalidimagefile: [''],
       certificationimagefile: [''],
       passportimagefile: [''],
     });
@@ -79,6 +89,17 @@ export class IndexComponent implements OnInit {
     let PassportId = group.get('studentpassportid').value;
    return (isforignflag == true && (PassportId == '' || PassportId == null) )? {PassportIdemp: true} : null
 
+  }
+
+  checknationalFile (group: FormGroup) {
+    let isforignflag = this.personaldataFormGroup.value.isforign;
+    let nationalFile = group.get('nationalidimagefile').value;
+   return (isforignflag == false && (nationalFile == '' || nationalFile == null) )? {nationalFileemp: true} : null
+  }
+  checkPassportFile(group: FormGroup) {
+    let isforignflag = this.personaldataFormGroup.value.isforign;
+    let PassportFile = group.get('passportimagefile').value;
+   return (isforignflag == true && (PassportFile == '' || PassportFile == null) )? {PassportFileemp: true} : null
 
   }
 
@@ -109,47 +130,109 @@ export class IndexComponent implements OnInit {
     return array.indexOf(word.toLowerCase()) > -1;
   }
 
-  Upload(event,idelm:number) {
+  Upload(event,idElm:number) {
+        this.fileSelect = <File>event.target.files[0];
+        let photoName = this.fileSelect.name;
+        var allowedExtensions = ["jpg", "png", "jpeg"];
+        this.fileExtension = photoName.split('.').pop();
+        if (this.isInArray(allowedExtensions, this.fileExtension)) {
+          this.fileExtensionError = false;
+        } else {
+          this.fileExtensionError = true;
+          return;
+        }
+        if (event.target.files[0] === 0)
+          return;
+        var mimeType = this.fileSelect.type;
+        if (mimeType.match(/image\/*/) == null) {
+          this.message = "فقط مسموح برفع صورة.";
+          return;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(this.fileSelect);
+        reader.onload = (_event) => {
 
-    this.selectedFile = <File>event.target.files[0];
-    let photoName = this.selectedFile.name;
-    var allowedExtensions = ["jpg", "png", "jpeg"];
-    this.fileExtension = photoName.split('.').pop();
+          const fd = new FormData();
+        if (this.fileSelect != null) {
+          fd.append('Image', this.fileSelect, this.fileSelect.name);
+        }
+        this.requestService.onPostUploadfile(fd).subscribe(data => {
+          const jsonValue = JSON.stringify(data);
+          const valueFromJson = JSON.parse(jsonValue);
+          var imagepath = (valueFromJson || {}).result
+          console.log("personalimagefile",imagepath)
 
-    if (this.isInArray(allowedExtensions, this.fileExtension)) {
-      this.fileExtensionError = false;
-    } else {
-      this.fileExtensionError = true;
-      return;
-    }
-    if (event.target.files[0] === 0)
-      return;
+          if(idElm == 1) {
+            this.imgpersonalURL = reader.result;
+            this.documentsFormGroup.patchValue({
+              personalimagefile:imagepath
+            });
+          }
+          if(idElm == 2) {
+            this.imgnationalURL = reader.result;
+            this.documentsFormGroup.patchValue({
+              nationalidimagefile:imagepath
+            });
+          }
 
-    var mimeType = this.selectedFile.type;
-    if (mimeType.match(/image\/*/) == null) {
-      this.message = "فقط مسموح برفع صورة.";
-      return;
-    }
+          if(idElm == 3) {
+            this.imgcertificationURL = reader.result;
+            this.documentsFormGroup.patchValue({
+              certificationimagefile:imagepath
+            });
+          }
 
-    var reader = new FileReader();
-    reader.readAsDataURL(this.selectedFile);
-    reader.onload = (_event) => {
-      this.imgURL = reader.result;
-    }
+          if(idElm == 4) {
+            this.imgpassportURL = reader.result;
+            this.documentsFormGroup.patchValue({
+              passportimagefile:imagepath
+            });
+          }
+
+
+
+        }, (error) => {
+          console.log(error)
+        });
+
+        }
+
+
+
   }
-  onPost(){
 
-  }
-/*   onPost(){
+  onSubmit(){
+debugger;
     this.postdata = true;
     this.addRequest = {
-           id:0,
-           nameAr: this.aboutAppAddform.value.textAr,
-           nameEn: this.aboutAppAddform.value.textEn
+      studentName_Ar: this.personaldataFormGroup.value.studentnamear,
+      studentName_En: this.personaldataFormGroup.value.studentnameen,
+      birthDate: this.personaldataFormGroup.value.studentbirthdate,
+      nationalId: (this.personaldataFormGroup.value.studentnationalid).toString(),
+      passportId: (this.personaldataFormGroup.value.studentpassportid).toString() ,
+      gender: +(this.personaldataFormGroup.value.studentgender),
+      address: this.personaldataFormGroup.value.studentaddress,
+      countryId: +(this.personaldataFormGroup.value.studentcountry),
+      isForign: this.personaldataFormGroup.value.isforign,
+      certificationType: this.educationdataFormGroup.value.certificationtype,
+      result: +(this.educationdataFormGroup.value.testresult),
+      personalImagePath: this.documentsFormGroup.value.personalimagefile,
+      natinalIdImagePath: this.documentsFormGroup.value.nationalidimagefile,
+      certificationImagePath: this.documentsFormGroup.value.certificationimagefile,
+      passportImagePath: this.documentsFormGroup.value.passportimagefile
     }
+
     this.requestService.onAddRequest(this.addRequest).subscribe(data => {
 
       this.postdata = false;
+      this.submitSuccess = true;
+      setTimeout(() => {
+        this.submitSuccess = false;
+      }, 4000);
+      this.personaldataFormGroup.reset();
+      this.educationdataFormGroup.reset();
+      this.documentsFormGroup.reset();
+       console.log(data)
 
 
     }, (error) => {
@@ -157,5 +240,5 @@ export class IndexComponent implements OnInit {
     });
 
   }
- */
+
 }
