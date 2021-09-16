@@ -12,7 +12,7 @@ export class HttprequsetService {
   constructor(private http:HttpClient) { }
 
   OnGetRequests(){
-    return this.http.get(`${this.apiRoot}/Admission​/Requests`);
+    return this.http.get(`${this.apiRoot}/Admission/Requests`);
   }
   OnGetCountries(){
     return this.http.get(`${this.apiRoot}/Countries`);
@@ -28,7 +28,7 @@ export class HttprequsetService {
       return this.http.post(`${this.apiRoot}/Admission/document/upload`, fd);
     }
     onAuthenticate(authenticateobj: object){
-      return this.http.post<IUser>(`${this.apiRoot}/Users​/Authenticate`, authenticateobj);
+      return this.http.post<IUser>(`${this.apiRoot}/Users/Authenticate`, authenticateobj);
     }
 ​
  /*  onPut(id:number){

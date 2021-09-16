@@ -4,9 +4,35 @@
     <app-header></app-header>
 
 <div class="container content">
+    <table class="table-grid responsetable" id="RequestReport">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th >Student Arabic name</th>
+            <th >Student english name</th>
+            <th> Student address</th>
+            <th >Student gender</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr  *ngFor="let Request of RequestsList ">
+            <td>{{Request.id}}</td>
+            <td>{{Request.studentNameAr}}</td>
+            <td>{{Request.studentNameEn}}</td>
+            <td>{{Request.address}}</td>
+            <td>{{Request.gender}}</td>
+            <td>
+              <button style= "padding: 6px 8px;margin-left:5px;"    (click)='onApproveClick(Request.id)' >
+                <span> Approve</span><i class="nb-edit" style="font-size: 1.3rem;"></i>
+              </button>
+                  <button style= "padding: 6px 8px;margin-left:5px;" (click)='onDetailsiClick(Request.id)' ><span> Details  </span></button>
+              </td>
+          </tr>
+        </tbody>
+        </table>
+</div>
+
 
 </div>
-<app-footer></app-footer>
-
-</div><!-- #full-container end -->
 

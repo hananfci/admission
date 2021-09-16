@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   this.loadingdata = false;
 
-  this.router.navigate([`requests`],{relativeTo: this.route} );
+  this.router.navigate([`Home/requests`] );
 
   }).catch(err=>{
     this.loadingdata = false;

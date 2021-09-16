@@ -233,3 +233,44 @@ li.nav-item {
     color: #18cfc4;
     text-decoration: none;
 }
+
+.responsetable {
+
+  width:99%;
+  margin-right:3px;
+  border-collapse: collapse;
+  border: 1px solid #eee!important;
+  border-bottom: 3px solid #29c1b8!important;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.10), 0px 10px 20px rgba(0,0,0,0.05), 0px 20px 20px rgba(0,0,0,0.05), 0px 30px 20px rgba(0,0,0,0.05);
+}
+.responsetable tr:hover
+{
+  background: #f4f4f4;
+}
+
+ .responsetable td {
+      color: #555;
+    }
+
+
+.responsetable th, td {
+  color: #999;
+  border: 1px solid #eee;
+  border-collapse: collapse;
+  text-align:center;
+  padding: 8px 10px;
+
+}
+.responsetable th {
+  background:#29c1b8; /*#0076a3;*/
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 12px;
+
+}
+ .responsetable th last {
+    border-right: none;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f273;
+  }

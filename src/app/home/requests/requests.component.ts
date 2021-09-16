@@ -21,7 +21,8 @@ export class RequestsComponent implements OnInit {
         this.loadingdata= true;
         const jsonValue = JSON.stringify(response);
         const valueFromJson = JSON.parse(jsonValue);
-        this.RequestsList = ((valueFromJson || {}).result || {}).items;
+        this.RequestsList = (valueFromJson || {}).result
+        console.log(this.RequestsList)
       },
       error => {
 

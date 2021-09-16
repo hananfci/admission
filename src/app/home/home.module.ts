@@ -12,10 +12,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RequestsComponent } from './requests/requests.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutingModule,
+    NgxPaginationModule,
     MatStepperModule,
     MatFormFieldModule,
     MatButtonModule,
