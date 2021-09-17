@@ -115,7 +115,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     height: 12px;
 
     border-radius: 50%;
-    background: #0e1155;
+    background: #8b8b8f;
     animation: ldio-tw3lft2h3a 1s linear infinite;
   }.ldio-tw3lft2h3a div:nth-child(1) > div {
     left: 74px;
@@ -192,7 +192,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     top: 62%;
     right: 45%;
     z-index: 10000;
-    margin-top:10%;
+    margin-top:6%;
   }
   .ldio-tw3lft2h3a {
     width: 100%;
@@ -274,3 +274,8 @@ li.nav-item {
   tr:nth-child(even) {
     background-color: #f2f2f273;
   }
+
+  .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #18cfc4;
+    color: #fff;
+}

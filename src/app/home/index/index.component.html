@@ -1,9 +1,5 @@
 
 
-<div id="full-container">
-    <app-header></app-header>
-
-<div class="container content">
   <div class="alert alert-success" role="alert" *ngIf="submitSuccess">
     Data save success!
   </div>
@@ -116,7 +112,7 @@
         <form [formGroup]="documentsFormGroup">
           <ng-template matStepLabel>Education data</ng-template>
             <div class="row">
-                <div class="form-group col-7">
+                <div class="form-group col-8">
                     <label for="personalimagefile">Personal Image   </label>
                       <input  class="form-control"
                       id="personalimagefile"
@@ -147,7 +143,7 @@
                   <div class="col-4" *ngIf="!fileExtensionError" >
                     <img   [src]="imgpassportURL" height="45" width= "50" *ngIf="imgpassportURL">
                   </div>
-                  <span *ngIf="documentsFormGroup.hasError('PassportFileemp') && documentsFormGroup.controls['passportimagefile'].touched" style="color:red"> Must Upload image here</span>
+                  <div *ngIf="documentsFormGroup.hasError('PassportFileemp') && documentsFormGroup.controls['passportimagefile'].touched" style="color:red"> Must Upload image here</div>
 
            </div>
             <div class="row">
@@ -167,7 +163,7 @@
                   <div class="col-4" *ngIf="!fileExtensionError" >
                     <img   [src]="imgnationalURL" height="45" width= "50" *ngIf="imgnationalURL">
                   </div>
-                  <span *ngIf="documentsFormGroup.hasError('nationalFileemp') && documentsFormGroup.controls['nationalidimagefile'].touched" style="color:red"> Must enter value here</span>
+                  <span *ngIf="documentsFormGroup.hasError('nationalFileemp') && documentsFormGroup.controls['nationalidimagefile'].touched" style="color:red"> Must Upload value here</span>
 
             </div>
             <div class="row">
@@ -190,7 +186,7 @@
                   </div>
 
              </div>
-           <div>
+           <div style="margin-top:5px;">
               <button mat-button matStepperPrevious class="btn btn-secondary" style="margin-right: 10px;" >Previous</button>
               <button mat-button matStepperNext class="btn btn-primary" (click)="onSubmit()" style="color:white;position: relative;" [disabled]= "!documentsFormGroup.valid || postdata">
 
@@ -208,11 +204,7 @@
     </mat-horizontal-stepper>
 
 
-    <!-- Copyright 2018 Google Inc. All Rights Reserved.
-        Use of this source code is governed by an MIT-style license that
-        can be found in the LICENSE file at http://angular.io/license -->
-</div>
-<app-footer></app-footer>
 
-</div><!-- #full-container end -->
+
+
 

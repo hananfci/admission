@@ -31,10 +31,11 @@ export class HttprequsetService {
       return this.http.post<IUser>(`${this.apiRoot}/Users/Authenticate`, authenticateobj);
     }
 ​
- /*  onPut(id:number){
-    return this.http.put(`${this.apiRoot}/Admission​/Requests​${id}​/Approve`);
+  onPut(id:number){
+
+    return this.http.put(`${this.apiRoot}/Admission​/Requests/​${id}​/Approve`,null);
   }
-   */
+
 
 ​
 }

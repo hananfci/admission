@@ -1,4 +1,4 @@
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule  } from '@angular/core';
 import { HomeRoutingModule } from './home-routing-module';
 import { IndexComponent } from './index/index.component';
 import { FooterComponent } from './footer/footer.component';
@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RequestsComponent } from './requests/requests.component';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { RequestdetailsComponent } from './requestdetails/requestdetails.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -29,10 +30,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
   declarations: [
   IndexComponent,
-  FooterComponent,
-  HeaderComponent,
   LoginComponent,
-  RequestsComponent],
+  RequestsComponent,
+  RequestdetailsComponent],
 
   providers: [
 

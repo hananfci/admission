@@ -18,7 +18,7 @@ export class IndexComponent implements OnInit {
   isChecked: boolean = false;
   countries: any[];
   birthdate: Date;
-  isforignflag:boolean;
+
   age: number;
   addRequest:IAdd;
   postdata = false;
@@ -56,8 +56,8 @@ export class IndexComponent implements OnInit {
 
     this.documentsFormGroup = this._formBuilder.group({
       personalimagefile: ['', Validators.required],
-      nationalidimagefile: [''],
-      certificationimagefile: [''],
+      nationalidimagefile: ['',this.checknationalFile.bind(this)],
+      certificationimagefile: ['',this.checkPassportFile.bind(this)],
       passportimagefile: [''],
     });
     this.OnGetCountriesList();
@@ -90,19 +90,49 @@ export class IndexComponent implements OnInit {
    return (isforignflag == true && (PassportId == '' || PassportId == null) )? {PassportIdemp: true} : null
 
   }
+  checknationalFile (control: AbstractControl){
 
-  checknationalFile (group: FormGroup) {
-    let isforignflag = this.personaldataFormGroup.value.isforign;
+    let nationalFile = control.value;
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (this.isForign == false && (nationalFile == '' || nationalFile == null)) {
+          resolve({nationalFileemp: true  });
+        } else {
+          resolve(null);
+        }
+      }, 1000);
+    });
+
+
+  }
+  checkPassportFile (control: AbstractControl){
+
+    let PassportFile = control.value;
+    return new Promise(resolve => {
+      setTimeout(() => {
+        if (this.isForign == true && (PassportFile == '' || PassportFile == null) ) {
+          resolve({PassportFileemp: true  });
+        } else {
+          resolve(null);
+        }
+      }, 1000);
+    });
+
+
+  }
+
+ /*  checknationalFile (group: FormGroup) {
+
     let nationalFile = group.get('nationalidimagefile').value;
-   return (isforignflag == false && (nationalFile == '' || nationalFile == null) )? {nationalFileemp: true} : null
-  }
-  checkPassportFile(group: FormGroup) {
-    let isforignflag = this.personaldataFormGroup.value.isforign;
+   return (!this.isForign && (nationalFile == '' || nationalFile == null) )? {nationalFileemp: true} : null
+  } */
+ /*  checkPassportFile(group: FormGroup) {
+
     let PassportFile = group.get('passportimagefile').value;
-   return (isforignflag == true && (PassportFile == '' || PassportFile == null) )? {PassportFileemp: true} : null
+   return (this.isForign == true && (PassportFile == '' || PassportFile == null) )? {PassportFileemp: true} : null
 
   }
-
+ */
 
 
   OnGetCountriesList() {

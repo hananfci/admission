@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { IndexComponent } from './index/index.component';
 import { LoginComponent } from './login/login.component';
+import { RequestdetailsComponent } from './requestdetails/requestdetails.component';
 import { RequestsComponent } from './requests/requests.component';
 const routes: Routes = [
 
@@ -22,6 +23,7 @@ const routes: Routes = [
       path: 'requests',
       component: RequestsComponent,
     },
+    {path: ':id' , component: RequestdetailsComponent},
     {
       path: '',
       redirectTo: 'index',
