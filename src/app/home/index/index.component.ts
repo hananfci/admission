@@ -8,7 +8,7 @@ import { HttprequsetService } from '../../share/httprequset.service'
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
-  @ViewChild('stepper')  stepper: any;
+  @ViewChild('stepper') stepper: any;
 
   isLinear = true;
   submitSuccess = false;
@@ -21,11 +21,11 @@ export class IndexComponent implements OnInit {
   birthdate: Date;
 
   age: number;
-  addRequest:IAdd;
+  addRequest: IAdd;
   postdata = false;
   fileExtension: any;
   fileExtensionError: boolean = false;
-  fileSelect:any = null
+  fileSelect: any = null
   personalfile: any = null;
   nationalidfile: any = null;
   certificationfile: any = null;
@@ -39,16 +39,16 @@ export class IndexComponent implements OnInit {
 
   ngOnInit() {
     this.personaldataFormGroup = this._formBuilder.group({
-      studentnamear: ['',[ Validators.required,Validators.pattern('[\u0600-\u06FF-/ ]*')]],
-      studentnameen: ['',[ Validators.required,Validators.pattern('[a-zA-Z0-9 ]*')]],
+      studentnamear: ['', [Validators.required, Validators.pattern('[\u0600-\u06FF-/ ]*')]],
+      studentnameen: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
       studentbirthdate: ['', Validators.required, this.checkAgeVal.bind(this)],
       studentnationalid: ['', [Validators.pattern(/^\d{14}$/)]],
       studentpassportid: [''],
-      studentcountry: [null,[ Validators.required]],
+      studentcountry: [null, [Validators.required]],
       studentgender: ['', [Validators.required]],
-      isforign: [false, Validators.required],
+      isforign: [false],
       studentaddress: ['', Validators.required]
-    },{validators: [this.checknationalid,this.checkPassportId]});
+    }, { validators: [this.checknationalid, this.checkPassportId] });
 
     this.educationdataFormGroup = this._formBuilder.group({
       certificationtype: ['', Validators.required],
@@ -81,24 +81,24 @@ export class IndexComponent implements OnInit {
       }, 1000);
     });
   }
-  checknationalid (group: FormGroup) {
+  checknationalid(group: FormGroup) {
     let isforignflag = group.get('isforign').value;
     let nationalid = group.get('studentnationalid').value;
-   return (isforignflag == false && (nationalid == '' || nationalid == null) )? {nationalIdemp: true} : null
+    return (isforignflag == false && (nationalid == '' || nationalid == null)) ? { nationalIdemp: true } : null
   }
-  checkPassportId (group: FormGroup) {
+  checkPassportId(group: FormGroup) {
     let isforignflag = group.get('isforign').value;
     let PassportId = group.get('studentpassportid').value;
-   return (isforignflag == true && (PassportId == '' || PassportId == null) )? {PassportIdemp: true} : null
+    return (isforignflag == true && (PassportId == '' || PassportId == null)) ? { PassportIdemp: true } : null
 
   }
-  checknationalFile (control: AbstractControl){
+  checknationalFile(control: AbstractControl) {
 
     let nationalFile = control.value;
     return new Promise(resolve => {
       setTimeout(() => {
         if (this.isForign == false && (nationalFile == '' || nationalFile == null)) {
-          resolve({nationalFileemp: true  });
+          resolve({ nationalFileemp: true });
         } else {
           resolve(null);
         }
@@ -107,13 +107,13 @@ export class IndexComponent implements OnInit {
 
 
   }
-  checkPassportFile (control: AbstractControl){
+  checkPassportFile(control: AbstractControl) {
 
     let PassportFile = control.value;
     return new Promise(resolve => {
       setTimeout(() => {
-        if (this.isForign == true && (PassportFile == '' || PassportFile == null) ) {
-          resolve({PassportFileemp: true  });
+        if (this.isForign == true && (PassportFile == '' || PassportFile == null)) {
+          resolve({ PassportFileemp: true });
         } else {
           resolve(null);
         }
@@ -123,18 +123,6 @@ export class IndexComponent implements OnInit {
 
   }
 
- /*  checknationalFile (group: FormGroup) {
-
-    let nationalFile = group.get('nationalidimagefile').value;
-   return (!this.isForign && (nationalFile == '' || nationalFile == null) )? {nationalFileemp: true} : null
-  } */
- /*  checkPassportFile(group: FormGroup) {
-
-    let PassportFile = group.get('passportimagefile').value;
-   return (this.isForign == true && (PassportFile == '' || PassportFile == null) )? {PassportFileemp: true} : null
-
-  }
- */
 
 
   OnGetCountriesList() {
@@ -161,87 +149,88 @@ export class IndexComponent implements OnInit {
     return array.indexOf(word.toLowerCase()) > -1;
   }
 
-  Upload(event,idElm:number) {
-        this.fileSelect = <File>event.target.files[0];
-        let photoName = this.fileSelect.name;
-        var allowedExtensions = ["jpg", "png", "jpeg"];
-        this.fileExtension = photoName.split('.').pop();
-        if (this.isInArray(allowedExtensions, this.fileExtension)) {
-          this.fileExtensionError = false;
-        } else {
-          this.fileExtensionError = true;
-          return;
+  Upload(event, idElm: number) {
+    this.fileSelect = <File>event.target.files[0];
+    let photoName = this.fileSelect.name;
+    var allowedExtensions = ["jpg", "png", "jpeg"];
+    this.fileExtension = photoName.split('.').pop();
+    if (this.isInArray(allowedExtensions, this.fileExtension)) {
+      this.fileExtensionError = false;
+    } else {
+      this.fileExtensionError = true;
+      return;
+    }
+    if (event.target.files[0] === 0)
+      return;
+    var mimeType = this.fileSelect.type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "فقط مسموح برفع صورة.";
+      return;
+    }
+    var reader = new FileReader();
+    reader.readAsDataURL(this.fileSelect);
+    reader.onload = (_event) => {
+
+      const fd = new FormData();
+      if (this.fileSelect != null) {
+        fd.append('Image', this.fileSelect, this.fileSelect.name);
+      }
+      this.postdata = true;
+      this.requestService.onPostUploadfile(fd).subscribe(data => {
+        const jsonValue = JSON.stringify(data);
+        const valueFromJson = JSON.parse(jsonValue);
+        var imagepath = (valueFromJson || {}).result
+        console.log("personalimagefile", imagepath)
+        this.postdata = false;
+        if (idElm == 1) {
+          this.imgpersonalURL = reader.result;
+          this.documentsFormGroup.patchValue({
+            personalimagefile: imagepath
+          });
         }
-        if (event.target.files[0] === 0)
-          return;
-        var mimeType = this.fileSelect.type;
-        if (mimeType.match(/image\/*/) == null) {
-          this.message = "فقط مسموح برفع صورة.";
-          return;
+        if (idElm == 2) {
+          this.imgnationalURL = reader.result;
+          this.documentsFormGroup.patchValue({
+            nationalidimagefile: imagepath
+          });
         }
-        var reader = new FileReader();
-        reader.readAsDataURL(this.fileSelect);
-        reader.onload = (_event) => {
 
-          const fd = new FormData();
-        if (this.fileSelect != null) {
-          fd.append('Image', this.fileSelect, this.fileSelect.name);
+        if (idElm == 3) {
+          this.imgcertificationURL = reader.result;
+          this.documentsFormGroup.patchValue({
+            certificationimagefile: imagepath
+          });
         }
-        this.postdata = true;
-        this.requestService.onPostUploadfile(fd).subscribe(data => {
-          const jsonValue = JSON.stringify(data);
-          const valueFromJson = JSON.parse(jsonValue);
-          var imagepath = (valueFromJson || {}).result
-          console.log("personalimagefile",imagepath)
-          this.postdata = false;
-          if(idElm == 1) {
-            this.imgpersonalURL = reader.result;
-            this.documentsFormGroup.patchValue({
-              personalimagefile:imagepath
-            });
-          }
-          if(idElm == 2) {
-            this.imgnationalURL = reader.result;
-            this.documentsFormGroup.patchValue({
-              nationalidimagefile:imagepath
-            });
-          }
 
-          if(idElm == 3) {
-            this.imgcertificationURL = reader.result;
-            this.documentsFormGroup.patchValue({
-              certificationimagefile:imagepath
-            });
-          }
-
-          if(idElm == 4) {
-            this.imgpassportURL = reader.result;
-            this.documentsFormGroup.patchValue({
-              passportimagefile:imagepath
-            });
-          }
-
-
-
-        }, (error) => {
-          console.log(error)
-        });
-
+        if (idElm == 4) {
+          this.imgpassportURL = reader.result;
+          this.documentsFormGroup.patchValue({
+            passportimagefile: imagepath
+          });
         }
+
+
+
+      }, (error) => {
+        console.log(error)
+      });
+
+    }
 
 
 
   }
 
-  onSubmit(){
-debugger;
+  onSubmit() {
+    debugger;
     this.postdata = true;
+
     this.addRequest = {
       studentName_Ar: this.personaldataFormGroup.value.studentnamear,
       studentName_En: this.personaldataFormGroup.value.studentnameen,
       birthDate: this.personaldataFormGroup.value.studentbirthdate,
-      nationalId: (this.personaldataFormGroup.value.studentnationalid).toString(),
-      passportId: (this.personaldataFormGroup.value.studentpassportid).toString() ,
+      nationalId:  this.personaldataFormGroup.value.studentnationalid != null? (this.personaldataFormGroup.value.studentnationalid).toString() : null,
+      passportId: this.personaldataFormGroup.value.studentpassportid != null?(this.personaldataFormGroup.value.studentpassportid).toString():null,
       gender: +(this.personaldataFormGroup.value.studentgender),
       address: this.personaldataFormGroup.value.studentaddress,
       countryId: +(this.personaldataFormGroup.value.studentcountry),
@@ -258,17 +247,22 @@ debugger;
 
       this.postdata = false;
       this.submitSuccess = true;
-     this.stepper.reset()
-      setTimeout(() => {
-        this.submitSuccess = false;
-      }, 4000);
       this.personaldataFormGroup.reset();
       this.educationdataFormGroup.reset();
       this.documentsFormGroup.reset();
-       console.log(data)
+      this.imgnationalURL = null;
+      this.imgcertificationURL = null;
+      this.imgpassportURL = null;
+      this.imgpersonalURL = null;
+      this.isForign = false;
+      setTimeout(() => {
+        this.submitSuccess = false;
+      }, 4000);
+
 
 
     }, (error) => {
+      this.postdata = false;
       console.log(error)
     });
 
