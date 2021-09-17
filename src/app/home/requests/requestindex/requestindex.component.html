@@ -1,0 +1,43 @@
+
+<div class="col-sm-7   offset-sm-5">
+    <div *ngIf="!loadingdata">
+    <div class="loadingio-spinner-spinner-wiptw5pypk"><div class="ldio-86zloens3vq">
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      </div></div>
+    </div>
+  </div>
+  <div [ngStyle]="loadingdata?{'display': 'block'} : {'display': 'none'}">
+      <table class="table-grid responsetable" id="RequestReport" >
+          <thead>
+            <tr>
+              <th>#</th>
+              <th >Student Arabic name</th>
+              <th >Student english name</th>
+              <th> Student address</th>
+              <th >Student gender</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr  *ngFor="let Request of RequestsList ">
+              <td>{{Request.id}}</td>
+              <td>{{Request.studentNameAr}}</td>
+              <td>{{Request.studentNameEn}}</td>
+              <td>{{Request.address}}</td>
+              <td>
+                <p *ngIf="Request.gender == 1">Male</p>
+                <p *ngIf="Request.gender == 2">Female</p>
+              </td>
+              <td>
+
+                <button style= "padding: 0px 8px;margin-left:5px;"    (click)='onApproveClick(Request.id)' mat-button class="btn btn-success" >
+                   <span> Approve </span>  <i class="fa fa-edit"></i>
+
+                </button>
+                    <button style= "padding: 0px 8px;margin-left:5px;" (click)='onDetailsiClick(Request.id)'  mat-button class="btn btn-primary">
+                      <span>  Details  </span> <i class="fa fa-eye"></i> </button>
+                </td>
+            </tr>
+          </tbody>
+       </table>
+   </div>

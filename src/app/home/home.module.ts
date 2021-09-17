@@ -13,7 +13,8 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RequestsComponent } from './requests/requests.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { RequestdetailsComponent } from './requestdetails/requestdetails.component';
+import { RequestdetailsComponent } from './requests/requestdetails/requestdetails.component';
+import { RequestindexComponent } from './requests/requestindex/requestindex.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -32,7 +33,8 @@ import { RequestdetailsComponent } from './requestdetails/requestdetails.compone
   IndexComponent,
   LoginComponent,
   RequestsComponent,
-  RequestdetailsComponent],
+  RequestdetailsComponent,
+  RequestindexComponent],
 
   providers: [
 
