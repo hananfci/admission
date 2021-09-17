@@ -279,3 +279,29 @@ li.nav-item {
     background-color: #18cfc4;
     color: #fff;
 }
+
+
+fieldset {
+  border: 1px solid #4a78b2;
+  border-radius: 7px;
+  margin-bottom: 22px;
+}
+fieldset label {
+  line-height: 1.9;
+}
+fieldset legend {
+  width: 20%;
+  background: transparent;
+  color: #18cfc4;
+  padding: 10px 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px #ddd;
+  margin-left: 20px;
+  float:none;
+}
+.contentdetails{
+  padding:12px
+}
+
+

@@ -1,1 +1,106 @@
-<p>requestdetails works!</p>
+
+<div class="col-sm-7   offset-sm-5">
+    <div *ngIf="!loadingdata">
+    <div class="loadingio-spinner-spinner-wiptw5pypk"><div class="ldio-86zloens3vq">
+      <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+      </div></div>
+    </div>
+  </div>
+  <div [ngStyle]="loadingdata?{'display': 'block'} : {'display': 'none'}">
+    <div class="row" *ngIf="loadingdata">
+        <div class="col-md-2">
+         </div>
+        <div class="col-md-8 col-md-offset-2 card">
+
+                <fieldset>
+                    <legend >student Details  </legend>
+                    <div class="row contentdetails">
+
+                        <div class="col-sm-6">
+                            <label><strong >  Name Ar:</strong></label>
+                            <label class="mrgtight">{{requestDetails?.studentNameAr}}</label>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label><strong > Name En  :</strong></label>
+                            <label class="mrgtight">  {{requestDetails?.studentNameEn}} </label>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label><strong > DOB   :</strong></label>
+                            <label class="mrgtight">  {{requestDetails?.birthDate}} </label>
+
+
+                        </div>
+                        <div class="col-sm-6">
+                            <label><strong >  Gender  :</strong></label>
+                            <label class="mrgtight">
+                                <p *ngIf="requestDetails?.gender == 1">Male</p>
+                                  <p *ngIf="requestDetails?.gender == 2">Female</p>
+                             </label>
+                        </div>
+
+
+                    <div class="col-sm-6">
+                        <label><strong>   Address :</strong></label>
+                        <label class="mrgtight">
+                            {{requestDetails?.address}}
+                       </label>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label><strong>   Country Name :</strong></label>
+                        <label class="mrgtight">
+                            {{requestDetails?.countryName}}
+                       </label>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label><strong>    Is Forign :</strong></label>
+                        <label class="mrgtight">
+                            <p *ngIf="requestDetails?.isForign">Yes</p>
+                            <p *ngIf="!requestDetails?.isForign">No</p>
+                       </label>
+
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label><strong>    National Id :</strong></label>
+                        <label class="mrgtight">
+                            {{requestDetails?.nationalId}}
+                       </label>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label><strong>    passport Id :</strong></label>
+                        <label class="mrgtight">
+                            {{requestDetails?.passportId}}
+                       </label>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label><strong>    Certification Type :</strong></label>
+                        <label class="mrgtight">
+                            {{requestDetails?.certificationType}}
+                       </label>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <label><strong>    test Result :</strong></label>
+                        <label class="mrgtight">
+                            {{requestDetails?.testResult}}
+                       </label>
+
+                    </div>
+
+                    </div>
+
+
+                </fieldset>
+
+        </div>
+      </div>
+   </div>
+
+
+

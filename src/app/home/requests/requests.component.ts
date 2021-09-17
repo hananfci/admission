@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttprequsetService } from 'src/app/share/httprequset.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { HttprequsetService } from 'src/app/share/httprequset.service';
 export class RequestsComponent implements OnInit {
   loadingdata = false
   RequestsList:any[];
-  constructor( private requestService: HttprequsetService,) { }
+  constructor( private requestService: HttprequsetService,private router:Router,private route:ActivatedRoute,) { }
 
   ngOnInit(): void {
     this.GetRequestsList();
@@ -29,7 +30,9 @@ export class RequestsComponent implements OnInit {
       });
   }
   onDetailsiClick(id:number){
+    this.router.navigate([ id ],{relativeTo: this.route})
   }
+
   onApproveClick(id:number){
 
   }
