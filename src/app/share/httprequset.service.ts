@@ -33,7 +33,7 @@ export class HttprequsetService {
 ​
   onPut(id:number){
 
-    return this.http.put(`${this.apiRoot}/Admission​/Requests/​${id}​/Approve`,null);
+    return this.http.put(`${this.apiRoot}/Admission/Requests/${id}/Approve`,null);
   }
 
 

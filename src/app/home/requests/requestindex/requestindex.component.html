@@ -30,14 +30,42 @@
               </td>
               <td>
 
-                <button style= "padding: 0px 8px;margin-left:5px;"    (click)='onApproveClick(Request.id)' mat-button class="btn btn-success" >
+                <button style= "padding: 0px 8px;margin-left:5px;"    (click)="openDeleteGruop(content,Request.id)" mat-button class="btn btn-success" >
                    <span> Approve </span>  <i class="fa fa-edit"></i>
 
                 </button>
                     <button style= "padding: 0px 8px;margin-left:5px;" (click)='onDetailsiClick(Request.id)'  mat-button class="btn btn-primary">
-                      <span>  Details  </span> <i class="fa fa-eye"></i> </button>
+                      <span>  Details  </span> <i class="fa fa-eye"></i>
+             </button>
+
                 </td>
             </tr>
           </tbody>
        </table>
    </div>
+
+
+   <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modal-basic-title"> Confirm Message </h5>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure want to approve this requset?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="d('Cross click')"><i class="fa fa-remove"></i>  Cancel</button>
+        <button type="button" class="btn btn-success " (click)="c('yes')" style="color:white; margin-right:5px;position: relative;" [disabled]= "postdata">
+             Approve <i class="fa fa-save"></i>
+
+             <div class="loadingio-spinner-spin-tg278z7z83"  [ngClass]="postdata? 'block' : 'none'" >
+                <div class="ldio-tw3lft2h3a">
+                <div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div>
+                </div>
+            </div>
+            </button>
+    </div>
+
+  </ng-template>

@@ -43,7 +43,7 @@ export class IndexComponent implements OnInit {
       studentbirthdate: ['', Validators.required, this.checkAgeVal.bind(this)],
       studentnationalid: ['', [Validators.pattern(/^\d{14}$/)]],
       studentpassportid: [''],
-      studentcountry: ['', Validators.required],
+      studentcountry: [null,[ Validators.required]],
       studentgender: ['', [Validators.required]],
       isforign: [false, Validators.required],
       studentaddress: ['', Validators.required]
@@ -56,11 +56,12 @@ export class IndexComponent implements OnInit {
 
     this.documentsFormGroup = this._formBuilder.group({
       personalimagefile: ['', Validators.required],
-      nationalidimagefile: ['',this.checknationalFile.bind(this)],
-      certificationimagefile: ['',this.checkPassportFile.bind(this)],
+      nationalidimagefile: [''],
+      certificationimagefile: [''],
       passportimagefile: [''],
     });
     this.OnGetCountriesList();
+
   }
   checkAgeVal(control: AbstractControl) {
     this.birthdate = this.personaldataFormGroup.value.studentbirthdate
@@ -141,7 +142,6 @@ export class IndexComponent implements OnInit {
       const jsonValue = JSON.stringify(res);
       const valueFromJson = JSON.parse(jsonValue);
       this.countries = (valueFromJson || {}).result
-      console.log(" this.countries", this.countries)
 
     });
   }
@@ -186,12 +186,13 @@ export class IndexComponent implements OnInit {
         if (this.fileSelect != null) {
           fd.append('Image', this.fileSelect, this.fileSelect.name);
         }
+        this.postdata = true;
         this.requestService.onPostUploadfile(fd).subscribe(data => {
           const jsonValue = JSON.stringify(data);
           const valueFromJson = JSON.parse(jsonValue);
           var imagepath = (valueFromJson || {}).result
           console.log("personalimagefile",imagepath)
-
+          this.postdata = false;
           if(idElm == 1) {
             this.imgpersonalURL = reader.result;
             this.documentsFormGroup.patchValue({
