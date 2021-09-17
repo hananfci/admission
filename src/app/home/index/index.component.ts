@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAdd } from 'src/app/share/request.model';
 import { HttprequsetService } from '../../share/httprequset.service'
@@ -8,6 +8,7 @@ import { HttprequsetService } from '../../share/httprequset.service'
   styleUrls: ['./index.component.css']
 })
 export class IndexComponent implements OnInit {
+  @ViewChild('stepper')  stepper: any;
 
   isLinear = true;
   submitSuccess = false;
@@ -257,6 +258,7 @@ debugger;
 
       this.postdata = false;
       this.submitSuccess = true;
+     this.stepper.reset()
       setTimeout(() => {
         this.submitSuccess = false;
       }, 4000);

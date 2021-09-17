@@ -66,7 +66,7 @@
 
                   <option *ngFor="let country of countries" [value]="country.id"> {{country.country_Name }}</option>
               </select>
-              <span *ngIf="personaldataFormGroup.controls['studentcountry'].errors?.required && personaldataFormGroup.controls['studentcountry'].touched" style="color:red">Must enter value here ! </span>
+              <span *ngIf="personaldataFormGroup.controls['studentcountry'].errors?.required && personaldataFormGroup.controls['studentcountry'].touched" style="color:red">Must select value  ! </span>
 
              </div>
               <div class="form-group col-4">
