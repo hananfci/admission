@@ -11,10 +11,10 @@ import { IUser } from 'src/app/share/request.model';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loadingdata:boolean = false;
-  loginObj:IUser
-  Error:boolean = false;
-  constructor(private _formBuilder: FormBuilder,private route:ActivatedRoute, private requestService: HttprequsetService,private router:Router,)  { }
+  loadingdata: boolean = false;
+  loginObj: IUser
+  Error: boolean = false;
+  constructor(private _formBuilder: FormBuilder, private route: ActivatedRoute, private requestService: HttprequsetService, private router: Router,) { }
 
   ngOnInit(): void {
     this.loginForm = this._formBuilder.group({
@@ -22,26 +22,28 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
-  onSubmit(){
+  onSubmit() {
     debugger;
     this.loadingdata = true;
-    this.loginObj={
-       userName: this.loginForm.value.userName,
-       password:this.loginForm.value.password ,
-       isadmin:true};
-    this.requestService.onAuthenticate( this.loginObj).toPromise().then( res =>{const jsonValue = JSON.stringify(res);
-    const valueFromJson = JSON.parse(jsonValue);
+    this.loginObj = {
+      userName: this.loginForm.value.userName,
+      password: this.loginForm.value.password,
+      isadmin: true
+    };
+    this.requestService.onAuthenticate(this.loginObj).toPromise().then(res => {
+      const jsonValue = JSON.stringify(res);
+      const valueFromJson = JSON.parse(jsonValue);
 
-  this.loadingdata = false;
+      this.loadingdata = false;
 
-  this.router.navigate([`Home/requests`] );
+      this.router.navigate([`Home/requests`]);
 
-  }).catch(err=>{
-    this.loadingdata = false;
-    console.log(err)
-    this.Error=err.error.responseException.exceptionMessage;
+    }).catch(err => {
+      this.loadingdata = false;
+      console.log(err)
+      this.Error = err.error.responseException.exceptionMessage;
 
-   });
+    });
 
   }
 }

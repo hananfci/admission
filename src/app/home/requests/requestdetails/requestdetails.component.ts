@@ -8,28 +8,28 @@ import { HttprequsetService } from 'src/app/share/httprequset.service';
 })
 export class RequestdetailsComponent implements OnInit {
   loadingdata = false
-  requestDetails:any[];
-  constructor( private requestService: HttprequsetService,private router:Router,private route:ActivatedRoute,) { }
+  requestDetails: any[];
+  constructor(private requestService: HttprequsetService, private router: Router, private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
     this.GetRequestsList();
   }
-  GetRequestsList(){
-   var  id = parseInt( this.route.snapshot.paramMap.get('id'));
+  GetRequestsList() {
+    var id = parseInt(this.route.snapshot.paramMap.get('id'));
     this.requestService.onGetRequest(id)
-    .subscribe(
-      response => {
-        this.loadingdata= true;
-        const jsonValue = JSON.stringify(response);
-        const valueFromJson = JSON.parse(jsonValue);
-        this.requestDetails = (valueFromJson || {}).result
-        console.log(this.requestDetails)
-      },
-      error => {
+      .subscribe(
+        response => {
+          this.loadingdata = true;
+          const jsonValue = JSON.stringify(response);
+          const valueFromJson = JSON.parse(jsonValue);
+          this.requestDetails = (valueFromJson || {}).result
 
-      });
+        },
+        error => {
+
+        });
   }
-  onClickBack(){
-    this.router.navigate(['../'], {relativeTo: this.route})
+  onClickBack() {
+    this.router.navigate(['../'], { relativeTo: this.route })
   }
 }

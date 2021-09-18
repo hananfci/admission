@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { IAdd } from 'src/app/share/request.model';
 import { HttprequsetService } from '../../share/httprequset.service'
 @Component({
@@ -38,6 +38,11 @@ export class IndexComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private requestService: HttprequsetService) { }
 
   ngOnInit() {
+    this.initForm();
+    this.OnGetCountriesList();
+
+  }
+  initForm() {
     this.personaldataFormGroup = this._formBuilder.group({
       studentnamear: ['', [Validators.required, Validators.pattern('[\u0600-\u06FF-/ ]*')]],
       studentnameen: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9 ]*')]],
@@ -61,8 +66,6 @@ export class IndexComponent implements OnInit {
       certificationimagefile: [''],
       passportimagefile: [''],
     });
-    this.OnGetCountriesList();
-
   }
   checkAgeVal(control: AbstractControl) {
     this.birthdate = this.personaldataFormGroup.value.studentbirthdate
@@ -142,8 +145,6 @@ export class IndexComponent implements OnInit {
     else {
       this.isForign = false
     }
-
-
   }
   isInArray(array, word) {
     return array.indexOf(word.toLowerCase()) > -1;
@@ -180,7 +181,7 @@ export class IndexComponent implements OnInit {
         const jsonValue = JSON.stringify(data);
         const valueFromJson = JSON.parse(jsonValue);
         var imagepath = (valueFromJson || {}).result
-        console.log("personalimagefile", imagepath)
+
         this.postdata = false;
         if (idElm == 1) {
           this.imgpersonalURL = reader.result;
@@ -229,12 +230,12 @@ export class IndexComponent implements OnInit {
       studentName_Ar: this.personaldataFormGroup.value.studentnamear,
       studentName_En: this.personaldataFormGroup.value.studentnameen,
       birthDate: this.personaldataFormGroup.value.studentbirthdate,
-      nationalId:  this.personaldataFormGroup.value.studentnationalid != null? (this.personaldataFormGroup.value.studentnationalid).toString() : null,
-      passportId: this.personaldataFormGroup.value.studentpassportid != null?(this.personaldataFormGroup.value.studentpassportid).toString():null,
+      nationalId: this.personaldataFormGroup.value.studentnationalid != null ? (this.personaldataFormGroup.value.studentnationalid).toString() : null,
+      passportId: this.personaldataFormGroup.value.studentpassportid != null ? (this.personaldataFormGroup.value.studentpassportid).toString() : null,
       gender: +(this.personaldataFormGroup.value.studentgender),
       address: this.personaldataFormGroup.value.studentaddress,
       countryId: +(this.personaldataFormGroup.value.studentcountry),
-      isForign: this.personaldataFormGroup.value.isforign,
+      isForign: this.personaldataFormGroup.value.isforign != null ? this.personaldataFormGroup.value.isforign : false,
       certificationType: this.educationdataFormGroup.value.certificationtype,
       result: +(this.educationdataFormGroup.value.testresult),
       personalImagePath: this.documentsFormGroup.value.personalimagefile,
@@ -257,8 +258,7 @@ export class IndexComponent implements OnInit {
       this.isForign = false;
       setTimeout(() => {
         this.submitSuccess = false;
-      }, 4000);
-
+      }, 2000);
 
 
     }, (error) => {

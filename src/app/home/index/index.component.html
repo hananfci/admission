@@ -40,8 +40,8 @@
                     <label class="form-check-label" for="female">Female</label>
                   </div>
 
-                  <div class="form-check form-check-inline">{{isForign}}
-                    <input type="checkbox" class="form-check-input" id="isforign" (change)="checkValue($event)" formControlName="isforign">
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="isforign"  (change)="checkValue($event)" formControlName="isforign">
                     <label class="form-check-label" for="isforign">Is Forign</label>
                   </div>
 
@@ -83,7 +83,7 @@
         </form>
       </mat-step>
       <mat-step [stepControl]="educationdataFormGroup">
-        <form [formGroup]="educationdataFormGroup">
+        <form [formGroup]="educationdataFormGroup" style="margin-bottom:14%">
           <ng-template matStepLabel>Education data</ng-template>
           <div class="row">
             <div class="form-group col-8">

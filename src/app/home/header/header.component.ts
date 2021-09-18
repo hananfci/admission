@@ -16,8 +16,4 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  singIn(){
-
-    this.router.navigateByUrl('auth/login');
-  }
 }
